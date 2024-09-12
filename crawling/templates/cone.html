@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Four-Cut</title>
+    <style>
+        /* 기존 CSS 그대로 사용 */
+        @font-face {
+          font-family: "LeeSeoyun";
+          src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff")
+            format("woff");
+          font-weight: normal;
+          font-style: normal;
+        }
+        body {
+            font-family: "LeeSeoyun";
+            margin: 0; 
+            display: flex;
+            justify-content: center;
+            background-image: url('{% static "img/background.png" %}');
+        }
+        .container {
+            width: 390px;
+            background-color: #ff9d73;
+            height: 100%;
+        }
+        .photos {
+            margin-top: 30px;
+        }
+        .photo-frame {
+            background-color: white;
+            margin: 15px 20px;
+            height: 200px;
+            background-size: cover;
+            position: relative;
+            cursor: pointer;
+        }
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .f-title {
+            color: white;
+            font-size: 25px;
+            font-weight: 900;
+        }
+        .f-date {
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .photo_description {
+            color: white;
+            background-color: black;
+            width: fit-content;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+
+            position: absolute;
+            bottom: 0;
+
+            transform: translate(-50%);
+            left: 50%;
+
+            opacity: 0;
+        }
+        .showText {
+            opacity: 0;
+        }
+        .hideText {
+            opacity: 1;
+            transition: opacity 0.5s linear;
+        }
+    </style>
+    <script>
+        function showText(number) {
+            document.querySelector("#desc" + number).classList.toggle("hideText");
+        }
+
+        function hideText(number) {
+            document.querySelector("#desc" + number).classList.toggle("hideText");
+        }
+
+        function alertText(number) {
+            alert(`${number}번째 추억이에요! 눌러주셔서 감사합니다 :)`);
+        }
+    </script>  
+</head>
+<body>
+    <div class="container">
+        <div class="photos">
+            {% for image in images %}
+            <div class="photo-frame"
+                style="background-image: url('{% static 'img/' %}{{ image }}');"
+                onmouseover="showText({{ forloop.counter }})"
+                onmouseout="hideText({{ forloop.counter }})"
+                onclick="alertText({{ forloop.counter }})">
+                <span id="desc{{ forloop.counter }}" class="photo_description hideText">
+                    {{ forloop.counter }}
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="footer">
+            <p class="f-title">코딩네컷</p>
+            <p class="f-date">{{ "now" | date:"Y.m.d" }}</p>
+        </div>
+    </div>
+</body>
+</html>

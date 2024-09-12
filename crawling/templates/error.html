@@ -1,0 +1,19 @@
+<!-- error.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-message">
+        <p>{{ error }}</p>
+        <a href="{% url 'crawling' %}">Try another search</a>  <!-- 'crawling' URL 이름 확인 -->
+    </div>
+</body>
+</html>
